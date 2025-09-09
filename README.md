@@ -1,173 +1,273 @@
 # Anthroscilloscope
 
-Python control suite for Rigol DS1104Z Plus oscilloscope with real-time waveform display and measurements.
+```
+                 ╔════════════════════════════════════════════════════════════╗
+                 ║  ┌────────────────────────────────────────────────────┐    ║
+                 ║  │                                                    │    ║
+                 ║  │     ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲    ╱╲     │    ║
+                 ║  │    ╱  ╲  ╱  ╲  ╱  ╲  ╱  ╲  ╱  ╲  ╱  ╲  ╱  ╲    │    ║
+                 ║  │   ╱    ╲╱    ╲╱    ╲╱    ╲╱    ╲╱    ╲╱    ╲   │    ║
+                 ║  │ ──┼────────────────────────────────────────────┼── │    ║
+                 ║  │   │   ANTHROSCILLOSCOPE                        │   │    ║
+                 ║  │   │                                            │   │    ║
+                 ║  │ ──┼────────────────────────────────────────────┼── │    ║
+                 ║  └────────────────────────────────────────────────────┘    ║
+                 ║                                                            ║
+                 ║  VERTICAL            HORIZONTAL         TRIGGER           ║
+                 ║  ┌─────┐ ┌─────┐    ┌─────┐ ┌─────┐    ┌─────┐ ┌─────┐  ║
+                 ║  │ ◉   │ │   ◉ │    │  ◉  │ │ ◉   │    │   ◉ │ │  ◉  │  ║
+                 ║  └─────┘ └─────┘    └─────┘ └─────┘    └─────┘ └─────┘  ║
+                 ║  VOLTS/DIV  POS     TIME/DIV  POS       LEVEL   MODE    ║
+                 ║                                                            ║
+                 ║  [CH1] [CH2] [MATH] [REF]    [AUTO] [RUN/STOP] [SINGLE]  ║
+                 ║   ▀▀▀   ───   ───    ───       ▀▀▀     ───       ───     ║
+                 ║                                                            ║
+                 ║  ○ CH1  ○ CH2  ○ EXT  ○ LINE         ■ POWER             ║
+                 ║  └─BNC─┘└─BNC─┘└─BNC─┘└─BNC─┘         ON/OFF             ║
+                 ╚════════════════════════════════════════════════════════════╝
+                       ╱│                                          │╲
+                      ╱ └──────────────────────────────────────────┘ ╲
+                     ╱________________________________________________╲
 
-## Features
+         ╔═╗╔╗╔╔╦╗╦ ╦╦═╗╔═╗╔═╗╔═╗╦╦  ╦  ╔═╗╔═╗╔═╗╔═╗╔═╗╔═╗
+         ╠═╣║║║ ║ ╠═╣╠╦╝║ ║╚═╗║  ║║  ║  ║ ║╚═╗║  ║ ║╠═╝║╣ 
+         ╩ ╩╝╚╝ ╩ ╩ ╩╩╚═╚═╝╚═╝╚═╝╩╩═╝╩═╝╚═╝╚═╝╚═╝╚═╝╩  ╚═╝
+```
 
-- **Live Waveform Display**: Real-time plotting of oscilloscope channels
-- **Screenshot Capture**: Save oscilloscope display as PNG files
-- **Measurements**: Read Vpp, Vmax, Vmin, Frequency, Period, etc.
-- **Cross-platform**: Works on Linux without NI-VISA (uses pyvisa-py backend)
-- **Interactive Menu**: User-friendly command-line interface
+> **Transform your Rigol DS1104Z Plus into a powerful PC-controlled measurement station**
 
-## Hardware Requirements
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![PyVISA](https://img.shields.io/badge/PyVISA-1.15.0-green.svg)](https://pyvisa.readthedocs.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey)](https://github.com/VonHoltenCodes/Anthroscilloscope)
+
+## 📡 What is Anthroscilloscope?
+
+Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS1104Z Plus oscilloscope to life on your computer. Whether you're debugging circuits, analyzing signals, or automating measurements, this suite provides everything you need for seamless remote control and data acquisition.
+
+### ✨ Key Features
+
+- **🎯 Real-Time Waveform Display** - Stream live waveforms directly to your PC with matplotlib visualization
+- **📸 Screenshot Capture** - Save high-resolution oscilloscope displays as PNG files
+- **📊 Automated Measurements** - Programmatically capture Vpp, Vmax, Vmin, Frequency, Period, and more
+- **🔧 No Proprietary Drivers** - Uses pure Python PyVISA backend - no NI-VISA required
+- **🖥️ Interactive CLI** - User-friendly menu system for quick measurements
+- **🐍 Python API** - Full programmatic control for custom automation scripts
+- **🌐 Ethernet/LAN Control** - Fast, reliable connection over your network
+
+## 🚀 Quick Start
+
+### Prerequisites
 
 - Rigol DS1104Z Plus Oscilloscope (or compatible DS1000Z series)
+- Python 3.10 or higher
 - Ethernet connection between PC and oscilloscope
-- Network configuration on same subnet
 
-## Installation
-
-### Quick Setup (Linux)
+### Installation
 
 ```bash
-# Make setup script executable and run it
+# Clone the repository
+git clone https://github.com/VonHoltenCodes/Anthroscilloscope.git
+cd Anthroscilloscope
+
+# Run the setup script (Linux/Mac)
 chmod +x rigol_setup.sh
 ./rigol_setup.sh
+
+# Or install manually
+pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy
 ```
 
-### Manual Installation
+### First Connection
 
-```bash
-# Install Python dependencies
-pip3 install --user pyvisa pyvisa-py pyusb pyserial matplotlib numpy
+1. **Configure your oscilloscope for LAN access:**
+   ```
+   Utility → I/O → LAN Config → DHCP/Static IP
+   ```
+   Note the IP address displayed
 
-# Or using apt (Ubuntu/Debian)
-sudo apt update
-sudo apt install python3-pyvisa python3-matplotlib python3-numpy python3-usb python3-serial
-```
-
-## Oscilloscope Configuration
-
-1. **Enable LAN/Ethernet on the oscilloscope:**
-   - Press `Utility` button
-   - Navigate to `I/O` 
-   - Select `LAN Config`
-   - Configure DHCP or Static IP
-   - Note the IP address shown
-
-2. **Verify network connection:**
+2. **Test the connection:**
    ```bash
-   ping <oscilloscope_ip>
+   python3 test_rigol_connection.py
    ```
 
-## Usage
+3. **Run the main control interface:**
+   ```bash
+   python3 rigol_oscilloscope_control.py
+   ```
 
-### Basic Usage
+## 📖 Usage Examples
+
+### Interactive Menu System
 
 ```bash
-python3 rigol_oscilloscope_control.py
-```
+$ python3 rigol_oscilloscope_control.py
 
-Enter the oscilloscope's IP address when prompted, then select from the menu:
+Anthroscilloscope - Rigol DS1104Z Control
+==========================================
+Enter oscilloscope IP address: 192.168.1.100
+
+Main Menu:
 1. Single waveform capture
-2. Live waveform view (updates every 500ms)
+2. Live waveform display
 3. Save screenshot
 4. Display measurements
 5. Exit
 
-### Available Scripts
+Select option: 2
+[Live waveform streaming begins...]
+```
 
-- `rigol_oscilloscope_control.py` - Main control interface with menu
-- `rigol_display_fixed.py` - Fixed live display (recommended)
-- `quick_scope_test.py` - Quick probe compensation test
-- `capture_and_analyze.py` - Capture and analyze waveforms
-- `test_rigol_connection.py` - Test connection to oscilloscope
-
-### Python Script Example
+### Python API Usage
 
 ```python
 from rigol_oscilloscope_control import RigolDS1104Z
+import matplotlib.pyplot as plt
 
-# Connect to oscilloscope
-scope = RigolDS1104Z("192.168.1.100")  # Replace with your scope's IP
+# Connect to your oscilloscope
+scope = RigolDS1104Z("192.168.1.100")
 scope.connect()
 
-# Get waveform data
+# Capture waveform data
 time_data, voltage_data = scope.get_waveform_data(channel=1)
 
-# Save screenshot
-scope.save_screenshot("my_capture.png")
+# Make measurements
+measurements = {
+    'Vpp': scope.get_measurement(1, 'VPP'),
+    'Frequency': scope.get_measurement(1, 'FREQ'),
+    'RMS': scope.get_measurement(1, 'VRMS')
+}
 
-# Get measurements
-vpp = scope.get_measurement(1, 'VPP')
-freq = scope.get_measurement(1, 'FREQ')
+print(f"Signal: {measurements['Vpp']:.3f} Vpp @ {measurements['Frequency']:.1f} Hz")
 
-# Close connection
+# Save oscilloscope screenshot
+scope.save_screenshot("measurement_capture.png")
+
+# Plot the waveform
+plt.figure(figsize=(10, 6))
+plt.plot(time_data, voltage_data)
+plt.xlabel('Time (s)')
+plt.ylabel('Voltage (V)')
+plt.title('Captured Waveform')
+plt.grid(True)
+plt.show()
+
 scope.close()
 ```
 
-## Supported SCPI Commands
+### Automated Testing Script
 
-The script uses standard Rigol DS1000Z series SCPI commands:
+```python
+# Quick probe compensation check
+from quick_scope_test import quick_probe_test
 
-- **Waveform Commands:**
-  - `:WAVeform:SOURce CHANnel<n>` - Select channel
-  - `:WAVeform:DATA?` - Get waveform data
-  - `:WAVeform:PREamble?` - Get scaling parameters
+# Automatically captures and analyzes the probe compensation signal
+results = quick_probe_test("192.168.1.100")
+print(f"Probe compensation: {results['status']}")
+```
 
-- **Display Commands:**
-  - `:DISPlay:DATA? ON,0,PNG` - Capture screenshot
+## 🛠️ Available Scripts
 
-- **Measurement Commands:**
-  - `:MEASure:ITEM? <type>,CHANnel<n>` - Get measurement
-  - Types: VPP, VMAX, VMIN, VAVG, VRMS, FREQ, PERiod
+| Script | Description |
+|--------|-------------|
+| `rigol_oscilloscope_control.py` | Main menu-driven control interface |
+| `rigol_display_fixed.py` | Optimized live waveform display (recommended) |
+| `quick_scope_test.py` | Probe compensation verification |
+| `capture_and_analyze.py` | Advanced waveform capture with analysis |
+| `test_rigol_connection.py` | Connection troubleshooting tool |
 
-## Troubleshooting
+## 📋 Supported SCPI Commands
+
+The toolkit implements the full Rigol DS1000Z SCPI command set:
+
+### Waveform Acquisition
+- `:WAVeform:SOURce` - Select channel source
+- `:WAVeform:DATA?` - Retrieve waveform data
+- `:WAVeform:PREamble?` - Get scaling parameters
+
+### Measurements
+- `:MEASure:ITEM?` - Query specific measurements
+  - Voltage: `VPP`, `VMAX`, `VMIN`, `VAVG`, `VRMS`
+  - Time: `FREQ`, `PERiod`, `RISetime`, `FALLtime`
+  - Pulse: `PWIDth`, `NWIDth`, `PDUTy`, `NDUTy`
+
+### Display Control
+- `:DISPlay:DATA?` - Capture screenshot
+- `:CHANnel<n>:DISPlay` - Enable/disable channels
+- `:AUToscale` - Auto-setup signal display
+
+## 🔧 Troubleshooting
 
 ### Connection Issues
 
-1. **Verify IP address is correct:**
-   - Check on scope: Utility → I/O → LAN Config
+```bash
+# Check network connectivity
+ping <oscilloscope_ip>
 
-2. **Check network connectivity:**
-   ```bash
-   ping <oscilloscope_ip>
-   ```
+# Verify SCPI port is accessible
+telnet <oscilloscope_ip> 5555
 
-3. **Firewall issues:**
-   - Temporarily disable firewall to test
-   - Add exception for port 5555 (SCPI)
+# Run connection test
+python3 test_rigol_connection.py
+```
 
-### No Display Window
+### Common Problems & Solutions
 
-- Matplotlib backend issues on Linux
-- Solution: Use `rigol_display_fixed.py` instead of `rigol_live_display.py`
+| Issue | Solution |
+|-------|----------|
+| No connection | Check IP address in Utility → I/O → LAN Config |
+| Timeout errors | Increase timeout: `scope.timeout = 10000` |
+| No waveform display | Use `rigol_display_fixed.py` for Linux systems |
+| Invalid measurements (9.9E+37) | Channel disabled or no signal present |
 
-### Invalid Measurements (9.9E+37)
+## 🏗️ Architecture
 
-- Indicates no signal or channel disabled
-- Check channel is ON and probe connected
-- Use AUTO button on scope to find signal
+```
+Anthroscilloscope/
+├── Core Control
+│   ├── rigol_oscilloscope_control.py  # Main control class
+│   └── test_rigol_connection.py       # Connection utilities
+├── Display & Visualization
+│   ├── rigol_display_fixed.py         # Live display (stable)
+│   └── rigol_live_display.py          # Alternative display
+├── Analysis Tools
+│   ├── capture_and_analyze.py         # Waveform analysis
+│   └── quick_scope_test.py            # Probe testing
+└── Setup & Configuration
+    └── rigol_setup.sh                  # Dependency installer
+```
 
-## Network Setup Tips
+## 🤝 Contributing
 
-### Static IP Configuration (Recommended)
+Contributions are welcome! Whether it's bug fixes, new features, or documentation improvements, feel free to:
 
-On the oscilloscope:
-1. Utility → I/O → LAN Config
-2. DHCP/Static: Static
-3. Set IP: 192.168.1.100 (example)
-4. Set Mask: 255.255.255.0
-5. Gateway: 192.168.1.1 (your router)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Performance Notes
+## 📝 License
 
-- Waveform transfer speed: ~10-50 Hz depending on network
-- Screenshot capture: ~1-2 seconds
-- For faster updates, reduce number of points
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Tested With
+## 🙏 Acknowledgments
 
-- Rigol DS1104Z Plus (100MHz, 4 channels)
-- Firmware: 00.04.05.SP2
-- Python 3.10+ on Linux (Pop!_OS, Ubuntu)
-- PyVISA 1.15.0 with pyvisa-py backend
+- Built for the Rigol DS1104Z Plus community
+- PyVISA team for the excellent VISA implementation
+- All contributors and testers
 
-## License
+## 📬 Support
 
-This project is provided as-is for educational and personal use.
+Having issues? Found a bug? Have a feature request?
 
-## Contributing
+- Open an [Issue](https://github.com/VonHoltenCodes/Anthroscilloscope/issues)
+- Check existing issues for solutions
+- Include your oscilloscope model and firmware version
 
-Contributions are welcome! Please feel free to submit issues or pull requests.
+---
+
+<div align="center">
+<b>Anthroscilloscope</b> - Bringing professional oscilloscope control to your desktop<br>
+Made with ❤️ for the electronics community
+</div>
