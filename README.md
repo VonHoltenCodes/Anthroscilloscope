@@ -70,12 +70,13 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 git clone https://github.com/VonHoltenCodes/Anthroscilloscope.git
 cd Anthroscilloscope
 
-# Run the setup script (Linux/Mac)
-chmod +x rigol_setup.sh
-./rigol_setup.sh
+# Run the complete setup script (Linux/Mac)
+chmod +x anthroscilloscope_setup.sh
+./anthroscilloscope_setup.sh
 
 # Or install manually
-pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy
+pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py
+# Optional: pip3 install pandas zeroconf
 ```
 
 ### First Connection
@@ -93,7 +94,9 @@ pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy
 
 3. **Run the main control interface:**
    ```bash
-   python3 rigol_oscilloscope_control.py
+   python3 anthroscilloscope_main.py
+   # Or use the launcher:
+   ./anthroscilloscope
    ```
 
 ## 📖 Usage Examples
@@ -168,13 +171,31 @@ print(f"Probe compensation: {results['status']}")
 
 ## 🛠️ Available Scripts
 
+### Core Scripts
 | Script | Description |
 |--------|-------------|
-| `rigol_oscilloscope_control.py` | Main menu-driven control interface |
-| `rigol_display_fixed.py` | Optimized live waveform display (recommended) |
+| `anthroscilloscope_main.py` | **Main interface with all features** |
+| `rigol_oscilloscope_control.py` | Basic control interface |
+| `rigol_display_fixed.py` | Optimized live waveform display |
+| `test_suite.py` | Comprehensive test suite |
+
+### Feature Modules
+| Module | Description |
+|--------|-------------|
+| `long_memory_capture.py` | Deep memory acquisition (up to 12M points) |
+| `spectrum_analyzer.py` | FFT analysis with peak detection |
+| `trigger_control.py` | Advanced trigger configuration |
+| `acquisition_control.py` | Acquisition modes and sampling control |
+| `device_discovery.py` | Auto-discovery of oscilloscopes |
+| `data_export.py` | Multi-format data export |
+
+### Utility Scripts
+| Script | Description |
+|--------|-------------|
 | `quick_scope_test.py` | Probe compensation verification |
-| `capture_and_analyze.py` | Advanced waveform capture with analysis |
-| `test_rigol_connection.py` | Connection troubleshooting tool |
+| `capture_and_analyze.py` | Advanced waveform analysis |
+| `test_connection_quick.py` | Quick connectivity test |
+| `anthroscilloscope_setup.sh` | Complete installation script |
 
 ## 📋 Supported SCPI Commands
 
