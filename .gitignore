@@ -1,0 +1,36 @@
+# Private/sensitive documentation
+CLAUDE_RIGOL.md
+README_RIGOL.md
+*_PRIVATE.md
+*_LOCAL.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Configuration files with credentials
+config.ini
+secrets.json
+credentials.json
