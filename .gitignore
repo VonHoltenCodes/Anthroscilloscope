@@ -9,6 +9,11 @@ config.py
 anthroscilloscope
 known_devices.txt
 
+# Session planning docs
+NEXT_SESSION_PLAN.md
+*_PLAN.md
+TODO_LOCAL.md
+
 # Local test files
 test_screenshot_*.png
 probe_comp_*.csv

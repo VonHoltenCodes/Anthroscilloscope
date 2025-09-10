@@ -54,6 +54,10 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 - **🖥️ Interactive CLI** - User-friendly menu system for quick measurements
 - **🐍 Python API** - Full programmatic control for custom automation scripts
 - **🌐 Ethernet/LAN Control** - Fast, reliable connection over your network
+- **🎵 Waveform Generator** - Control built-in signal generator (DS1104Z Plus -S models)
+- **📈 FFT Spectrum Analysis** - Real-time frequency domain analysis with peak detection
+- **💾 Deep Memory Capture** - Acquire up to 12M sample points for detailed analysis
+- **🔍 Auto-Discovery** - Automatically find oscilloscopes on your network
 
 ## 🚀 Quick Start
 
@@ -65,12 +69,13 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 
 ### Installation
 
+#### Linux/Mac
 ```bash
 # Clone the repository
 git clone https://github.com/VonHoltenCodes/Anthroscilloscope.git
 cd Anthroscilloscope
 
-# Run the complete setup script (Linux/Mac)
+# Run the complete setup script
 chmod +x anthroscilloscope_setup.sh
 ./anthroscilloscope_setup.sh
 
@@ -78,6 +83,21 @@ chmod +x anthroscilloscope_setup.sh
 pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py
 # Optional: pip3 install pandas zeroconf
 ```
+
+#### Windows
+```batch
+REM Clone the repository (or download ZIP from GitHub)
+git clone https://github.com/VonHoltenCodes/Anthroscilloscope.git
+cd Anthroscilloscope
+
+REM Run the Windows setup script
+anthroscilloscope_setup.bat
+
+REM Or install manually
+pip install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py pandas zeroconf
+```
+
+> **Note:** Windows batch files are currently under development and untested. Please report any issues.
 
 ### First Connection
 
@@ -93,10 +113,17 @@ pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py
    ```
 
 3. **Run the main control interface:**
+   
+   **Linux/Mac:**
    ```bash
    python3 anthroscilloscope_main.py
    # Or use the launcher:
    ./anthroscilloscope
+   ```
+   
+   **Windows:**
+   ```batch
+   anthroscilloscope.bat
    ```
 
 ## 📖 Usage Examples
@@ -188,6 +215,7 @@ print(f"Probe compensation: {results['status']}")
 | `acquisition_control.py` | Acquisition modes and sampling control |
 | `device_discovery.py` | Auto-discovery of oscilloscopes |
 | `data_export.py` | Multi-format data export |
+| `waveform_generator.py` | Built-in signal generator control (-S models) |
 
 ### Utility Scripts
 | Script | Description |
