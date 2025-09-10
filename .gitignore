@@ -4,6 +4,19 @@ README_RIGOL.md
 *_PRIVATE.md
 *_LOCAL.md
 
+# Local configuration
+config.py
+anthroscilloscope
+known_devices.txt
+
+# Local test files
+test_screenshot_*.png
+probe_comp_*.csv
+probe_comp_*.json
+probe_comp_*.npz
+waveform_*.png
+long_memory_*.png
+
 # Python
 __pycache__/
 *.py[cod]
