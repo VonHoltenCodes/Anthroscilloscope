@@ -4,6 +4,10 @@ Anthroscilloscope Main Control Interface
 Comprehensive oscilloscope control suite with all advanced features
 """
 
+# Suppress matplotlib warnings
+import warnings
+warnings.filterwarnings('ignore', message='Unable to import Axes3D.*', category=UserWarning)
+
 import sys
 import os
 import time
@@ -20,6 +24,9 @@ from data_export import DataExporter, export_suite
 from trigger_control import TriggerControl, trigger_wizard
 from spectrum_analyzer import SpectrumAnalyzer, analyze_waveform
 from acquisition_control import AcquisitionControl, acquisition_wizard
+from lissajous_xy_mode import LissajousXYAnalyzer, InteractiveLissajousViewer, LissajousGenerator
+from frequency_math import FrequencyAnalyzer, MusicalIntervals, LissajousFrequencyMath
+import config
 
 
 class Anthroscilloscope:
@@ -35,14 +42,19 @@ class Anthroscilloscope:
     def connect(self, ip_address=None):
         """Connect to oscilloscope"""
         if ip_address is None:
-            # Use device discovery
-            print("\n🔍 DEVICE DISCOVERY")
-            print("="*60)
-            ip_address = interactive_discovery()
-            
-            if not ip_address:
-                print("No device selected. Exiting.")
-                return False
+            # Try config first
+            if hasattr(config, 'RIGOL_IP'):
+                ip_address = config.RIGOL_IP
+                print(f"Using configured IP: {ip_address}")
+            else:
+                # Use device discovery
+                print("\n🔍 DEVICE DISCOVERY")
+                print("="*60)
+                ip_address = interactive_discovery()
+                
+                if not ip_address:
+                    print("No device selected. Exiting.")
+                    return False
         
         self.ip_address = ip_address
         self.scope_controller = RigolDS1104Z(ip_address)
@@ -81,10 +93,16 @@ class Anthroscilloscope:
         print("  8. Trigger configuration")
         print("  9. Acquisition settings")
         
+        print("\n🎨 Lissajous & XY Mode:")
+        print("  10. Interactive Lissajous viewer")
+        print("  11. XY mode analysis")
+        print("  12. Frequency ratio calculator")
+        print("  13. Musical interval analysis")
+        
         print("\n🔧 Utilities:")
-        print("  10. Auto-setup")
-        print("  11. Device info")
-        print("  12. Change oscilloscope")
+        print("  14. Auto-setup")
+        print("  15. Device info")
+        print("  16. Change oscilloscope")
         
         print("\n  0. Exit")
         print("-"*60)
@@ -131,12 +149,24 @@ class Anthroscilloscope:
                     acquisition_wizard(self.scope)
                     
                 elif choice == '10':
-                    self.auto_setup()
+                    self.lissajous_viewer()
                     
                 elif choice == '11':
-                    self.device_info()
+                    self.xy_mode_analysis()
                     
                 elif choice == '12':
+                    self.frequency_ratio_calculator()
+                    
+                elif choice == '13':
+                    self.musical_interval_analysis()
+                    
+                elif choice == '14':
+                    self.auto_setup()
+                    
+                elif choice == '15':
+                    self.device_info()
+                    
+                elif choice == '16':
                     self.change_oscilloscope()
                     
                 elif choice == '0':
@@ -415,6 +445,192 @@ class Anthroscilloscope:
         else:
             print("❌ Failed to connect")
             sys.exit(1)
+    
+    def lissajous_viewer(self):
+        """Launch interactive Lissajous pattern viewer"""
+        print("\n🎨 INTERACTIVE LISSAJOUS VIEWER")
+        print("-"*40)
+        print("Launching interactive viewer...")
+        
+        viewer = InteractiveLissajousViewer(self.scope)
+        viewer.run()
+    
+    def xy_mode_analysis(self):
+        """Perform XY mode analysis"""
+        print("\n📊 XY MODE ANALYSIS")
+        print("-"*40)
+        
+        analyzer = LissajousXYAnalyzer(self.scope)
+        
+        print("Options:")
+        print("1. Enable XY mode")
+        print("2. Disable XY mode")
+        print("3. Capture and analyze pattern")
+        print("4. Back to main menu")
+        
+        choice = input("\nSelect option: ").strip()
+        
+        if choice == '1':
+            if analyzer.enable_xy_mode():
+                print("✅ XY mode enabled")
+                print("Connect CH1 to X signal, CH2 to Y signal")
+        
+        elif choice == '2':
+            if analyzer.disable_xy_mode():
+                print("✅ Returned to YT mode")
+        
+        elif choice == '3':
+            print("Capturing XY data...")
+            x_data, y_data = analyzer.capture_xy_data()
+            
+            if x_data is not None:
+                pattern = analyzer.analyze_pattern(x_data, y_data)
+                ratio_x, ratio_y = pattern.get_simplified_ratio()
+                
+                print(f"\n📈 Analysis Results:")
+                print(f"Frequency ratio: {ratio_x}:{ratio_y}")
+                print(f"Phase difference: {np.degrees(pattern.phase):.1f}°")
+                print(f"X amplitude: {pattern.amplitude_x:.3f}")
+                print(f"Y amplitude: {pattern.amplitude_y:.3f}")
+                
+                # Plot the pattern
+                x_gen, y_gen = LissajousGenerator.generate(pattern, points=1000)
+                
+                plt.figure(figsize=(10, 5))
+                
+                # Captured data
+                plt.subplot(1, 2, 1)
+                plt.plot(x_data, y_data, 'b-', alpha=0.7)
+                plt.xlabel('X (CH1)')
+                plt.ylabel('Y (CH2)')
+                plt.title('Captured Pattern')
+                plt.grid(True, alpha=0.3)
+                plt.axis('equal')
+                
+                # Generated pattern
+                plt.subplot(1, 2, 2)
+                plt.plot(x_gen, y_gen, 'r-', alpha=0.7)
+                plt.xlabel('X')
+                plt.ylabel('Y')
+                plt.title(f'Generated {ratio_x}:{ratio_y} Pattern')
+                plt.grid(True, alpha=0.3)
+                plt.axis('equal')
+                
+                plt.tight_layout()
+                plt.show()
+    
+    def frequency_ratio_calculator(self):
+        """Calculate frequency ratios and Lissajous parameters"""
+        print("\n🔢 FREQUENCY RATIO CALCULATOR")
+        print("-"*40)
+        
+        print("Enter frequencies (Hz) or 'measure' to get from scope:")
+        
+        freq_x_str = input("X frequency (CH1): ").strip()
+        
+        if freq_x_str.lower() == 'measure':
+            freq_x = self.scope_controller.get_measurement(1, 'FREQ')
+            if freq_x:
+                print(f"Measured: {freq_x:.2f} Hz")
+        else:
+            try:
+                freq_x = float(freq_x_str)
+            except:
+                print("Invalid frequency")
+                return
+        
+        freq_y_str = input("Y frequency (CH2): ").strip()
+        
+        if freq_y_str.lower() == 'measure':
+            freq_y = self.scope_controller.get_measurement(2, 'FREQ')
+            if freq_y:
+                print(f"Measured: {freq_y:.2f} Hz")
+        else:
+            try:
+                freq_y = float(freq_y_str)
+            except:
+                print("Invalid frequency")
+                return
+        
+        # Calculate parameters
+        print(f"\n📊 Analysis:")
+        print(f"Frequencies: {freq_x:.2f} Hz × {freq_y:.2f} Hz")
+        
+        ratio = freq_x / freq_y if freq_y != 0 else 0
+        print(f"Ratio: {ratio:.4f}")
+        
+        # Find simplified ratio
+        from fractions import Fraction
+        frac = Fraction(ratio).limit_denominator(20)
+        print(f"Simplified: {frac.numerator}:{frac.denominator}")
+        
+        # Pattern analysis
+        period = LissajousFrequencyMath.pattern_period(freq_x, freq_y)
+        print(f"Pattern period: {period*1000:.2f} ms")
+        
+        crossings = LissajousFrequencyMath.crossing_points(frac.numerator, frac.denominator)
+        print(f"Crossing points: {crossings}")
+        
+        complexity = LissajousFrequencyMath.pattern_complexity(frac.numerator, frac.denominator)
+        print(f"Complexity: {complexity:.2f}")
+        
+        # Stability
+        stability = LissajousFrequencyMath.stability_analysis(freq_x, freq_y)
+        print(f"Pattern stable: {stability['is_stable']}")
+        print(f"Drift rate: {stability['drift_rate_hz']:.3f} Hz")
+    
+    def musical_interval_analysis(self):
+        """Analyze musical intervals from frequency measurements"""
+        print("\n🎵 MUSICAL INTERVAL ANALYSIS")
+        print("-"*40)
+        
+        print("Measure frequencies from oscilloscope channels...")
+        
+        # Get frequencies from active channels
+        frequencies = []
+        for ch in range(1, 5):
+            state = self.scope.query(f':CHANnel{ch}:DISPlay?').strip()
+            if state == '1':
+                freq = self.scope_controller.get_measurement(ch, 'FREQ')
+                if freq and freq > 0:
+                    frequencies.append((ch, freq))
+                    print(f"CH{ch}: {freq:.2f} Hz")
+        
+        if len(frequencies) < 2:
+            print("Need at least 2 active channels with signals")
+            return
+        
+        print("\n📊 Interval Analysis:")
+        
+        # Analyze all pairs
+        for i in range(len(frequencies)):
+            for j in range(i+1, len(frequencies)):
+                ch1, freq1 = frequencies[i]
+                ch2, freq2 = frequencies[j]
+                
+                ratio = freq1 / freq2 if freq1 > freq2 else freq2 / freq1
+                
+                interval = MusicalIntervals.find_closest_interval(ratio)
+                if interval:
+                    print(f"\nCH{ch1} → CH{ch2}:")
+                    print(f"  Ratio: {ratio:.4f}")
+                    print(f"  Interval: {interval.interval_name}")
+                    print(f"  Exact: {interval.numerator}:{interval.denominator}")
+                    print(f"  Cents off: {interval.cents:.1f}")
+                    print(f"  Consonance: {interval.consonance_rating:.2f}")
+        
+        # Find fundamental
+        all_freqs = [f for _, f in frequencies]
+        fundamental = FrequencyAnalyzer.find_fundamental(all_freqs)
+        print(f"\nEstimated fundamental: {fundamental:.2f} Hz")
+        
+        # Check if harmonics
+        print("\nHarmonic analysis:")
+        for ch, freq in frequencies:
+            harmonic = round(freq / fundamental)
+            error = abs(freq - fundamental * harmonic)
+            if error < fundamental * 0.05:  # 5% tolerance
+                print(f"  CH{ch}: Harmonic {harmonic} (error: {error:.1f} Hz)")
 
 
 def main():

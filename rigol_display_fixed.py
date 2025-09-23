@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Fixed live display for Rigol DS1104Z Plus oscilloscope"""
 
+# Suppress matplotlib 3D warnings
+import warnings
+warnings.filterwarnings('ignore', message='Unable to import Axes3D.*', category=UserWarning)
+
 import pyvisa
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,8 +16,15 @@ def main():
     print("RIGOL DS1104Z PLUS - LIVE DISPLAY")
     print("="*60)
     
-    # Connect to scope
-    ip = "192.168.68.73"
+    # Connect to scope - use config or prompt for IP
+    try:
+        import config
+        ip = config.RIGOL_IP
+    except (ImportError, AttributeError):
+        ip = input("Enter oscilloscope IP address: ").strip()
+        if not ip:
+            print("No IP address provided")
+            return
     rm = pyvisa.ResourceManager('@py')
     
     try:
@@ -135,8 +146,14 @@ def main():
     except Exception as e:
         print(f"Connection error: {e}")
     finally:
-        scope.close()
-        rm.close()
+        try:
+            scope.close()
+        except:
+            pass
+        try:
+            rm.close()
+        except:
+            pass
         plt.close('all')
         print("Display closed.")
 
