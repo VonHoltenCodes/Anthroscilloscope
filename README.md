@@ -43,7 +43,10 @@
 
 ## 📡 What is Anthroscilloscope?
 
-Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS1104Z Plus oscilloscope to life on your computer. Whether you're debugging circuits, analyzing signals, or automating measurements, this suite provides everything you need for seamless remote control and data acquisition.
+Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS1104Z Plus oscilloscope to life on your computer. Whether you're debugging circuits, analyzing signals, creating Lissajous patterns, or automating measurements, this suite provides everything you need for seamless remote control and data acquisition.
+
+![Anthroscilloscope GUI](readme-photo-assets/anthroscilloscope-gui.png)
+*Main control interface with live waveform display and measurement controls*
 
 ### ✨ Key Features
 
@@ -58,6 +61,9 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 - **📈 FFT Spectrum Analysis** - Real-time frequency domain analysis with peak detection
 - **💾 Deep Memory Capture** - Acquire up to 12M sample points for detailed analysis
 - **🔍 Auto-Discovery** - Automatically find oscilloscopes on your network
+- **🌀 NEW: Lissajous XY Mode** - Generate and analyze mathematical art patterns with frequency ratios
+- **🎼 NEW: Musical Interval Detection** - Identify perfect fifths, thirds, and other harmonic relationships
+- **🔊 NEW: Audio Signal Generation** - Create test patterns through sound card output
 
 ## 🚀 Quick Start
 
@@ -80,7 +86,7 @@ chmod +x anthroscilloscope_setup.sh
 ./anthroscilloscope_setup.sh
 
 # Or install manually
-pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py
+pip3 install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py sounddevice
 # Optional: pip3 install pandas zeroconf
 ```
 
@@ -94,7 +100,7 @@ REM Run the Windows setup script
 anthroscilloscope_setup.bat
 
 REM Or install manually
-pip install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py pandas zeroconf
+pip install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py sounddevice pandas zeroconf
 ```
 
 > **Note:** Windows batch files are currently under development and untested. Please report any issues.
@@ -107,12 +113,18 @@ pip install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py pandas z
    ```
    Note the IP address displayed
 
-2. **Test the connection:**
+2. **Create configuration file:**
+   ```bash
+   cp config_template.py config.py
+   # Edit config.py with your oscilloscope IP address
+   ```
+
+3. **Test the connection:**
    ```bash
    python3 test_rigol_connection.py
    ```
 
-3. **Run the main control interface:**
+4. **Run the main control interface:**
    
    **Linux/Mac:**
    ```bash
@@ -131,21 +143,29 @@ pip install pyvisa pyvisa-py pyusb pyserial matplotlib numpy scipy h5py pandas z
 ### Interactive Menu System
 
 ```bash
-$ python3 rigol_oscilloscope_control.py
+$ python3 anthroscilloscope_main.py
 
-Anthroscilloscope - Rigol DS1104Z Control
-==========================================
-Enter oscilloscope IP address: 192.168.1.100
+🎛️ ANTHROSCILLOSCOPE MAIN CONTROL
+==================================================
 
 Main Menu:
-1. Single waveform capture
-2. Live waveform display
-3. Save screenshot
-4. Display measurements
-5. Exit
+1. Quick Scope Test (Probe Compensation)
+2. Live Waveform Display
+3. Single Waveform Capture
+4. Save Screenshot
+5. Display Measurements
+6. Spectrum Analyzer (FFT)
+7. Deep Memory Capture
+8. Waveform Generator Control
+9. Data Export
+10. Interactive Lissajous Viewer
+11. XY Mode Pattern Analysis
+12. Frequency Ratio Calculator
+13. Musical Interval Analysis
+0. Exit
 
-Select option: 2
-[Live waveform streaming begins...]
+Select option: 10
+[Interactive Lissajous pattern generator launches...]
 ```
 
 ### Python API Usage
@@ -185,6 +205,45 @@ plt.show()
 scope.close()
 ```
 
+### 🌀 NEW: Lissajous Pattern Generation
+
+![Lissajous Generator](readme-photo-assets/lissajous-generator-gui.png)
+*Interactive Lissajous pattern generator with real-time control*
+
+```python
+from lissajous_xy_mode import LissajousXYAnalyzer, LissajousPattern
+from waveform_generator_control import WaveformGeneratorControl
+
+# Create analyzer for oscilloscope XY mode
+analyzer = LissajousXYAnalyzer("192.168.1.100")
+analyzer.connect()
+
+# Enable XY mode on oscilloscope
+analyzer.set_xy_mode(True)
+
+# Generate a 3:2 Lissajous pattern (perfect fifth)
+pattern = LissajousPattern(
+    freq_x=660.0,  # 3x base frequency
+    freq_y=440.0,  # 2x base frequency (A440)
+    phase=0.0
+)
+
+# Start audio generation through sound card
+generator = WaveformGeneratorControl()
+generator.freq_left = pattern.freq_x
+generator.freq_right = pattern.freq_y
+generator.phase = pattern.phase
+generator.start_generator()
+
+# Analyze the pattern on oscilloscope
+analysis = analyzer.analyze_pattern()
+print(f"Detected: {analysis['ratio_simplified']} ratio")
+print(f"Musical interval: {analysis['musical_interval']}")
+```
+
+![Lissajous Pattern on Oscilloscope](readme-photo-assets/IMG_2065.JPEG)
+*Actual Lissajous pattern displayed on DS1104Z Plus in XY mode*
+
 ### Automated Testing Script
 
 ```python
@@ -216,6 +275,9 @@ print(f"Probe compensation: {results['status']}")
 | `device_discovery.py` | Auto-discovery of oscilloscopes |
 | `data_export.py` | Multi-format data export |
 | `waveform_generator.py` | Built-in signal generator control (-S models) |
+| **`lissajous_xy_mode.py`** | **XY mode control and Lissajous pattern analysis** |
+| **`frequency_math.py`** | **Musical interval detection and frequency mathematics** |
+| **`waveform_generator_control.py`** | **Audio signal generation for pattern creation** |
 
 ### Utility Scripts
 | Script | Description |
@@ -275,15 +337,25 @@ python3 test_rigol_connection.py
 Anthroscilloscope/
 ├── Core Control
 │   ├── rigol_oscilloscope_control.py  # Main control class
+│   ├── anthroscilloscope_main.py      # Main menu interface
 │   └── test_rigol_connection.py       # Connection utilities
 ├── Display & Visualization
 │   ├── rigol_display_fixed.py         # Live display (stable)
 │   └── rigol_live_display.py          # Alternative display
+├── Lissajous & XY Mode 🆕
+│   ├── lissajous_xy_mode.py          # XY mode analyzer
+│   ├── frequency_math.py             # Musical intervals
+│   ├── waveform_generator_control.py # Audio generation
+│   └── interactive_lissajous_demo.py # Interactive GUI
 ├── Analysis Tools
 │   ├── capture_and_analyze.py         # Waveform analysis
+│   ├── spectrum_analyzer.py           # FFT analysis
 │   └── quick_scope_test.py            # Probe testing
-└── Setup & Configuration
-    └── rigol_setup.sh                  # Dependency installer
+├── Setup & Configuration
+│   ├── config_template.py             # Configuration template
+│   └── anthroscilloscope_setup.sh     # Dependency installer
+└── Assets
+    └── readme-photo-assets/            # Screenshots & images
 ```
 
 ## 🤝 Contributing
