@@ -129,6 +129,45 @@ class LissajousTextRenderer:
         chars = self.font.available_characters()
         return ''.join(chars)
 
+    def render_text_to_audio(self, text: str,
+                            scale: float = 1.0,
+                            speed_scale: float = 1.0,
+                            loop_count: int = 60) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Render text to audio with scaling options (for GUI)
+
+        Args:
+            text: Text to render
+            scale: Font scale factor (affects size)
+            speed_scale: Speed multiplier (affects duration)
+            loop_count: Number of loops for persistence
+
+        Returns:
+            Tuple of (left_channel, right_channel) audio arrays
+        """
+        # Convert text to path
+        x_path, y_path = self.text_to_path.text_to_path(text)
+
+        if len(x_path) == 0:
+            return np.array([]), np.array([])
+
+        # Apply scaling
+        x_path = np.array(x_path) * scale
+        y_path = np.array(y_path) * scale
+
+        # Calculate duration based on speed
+        base_duration = self.path_to_audio.calculate_audio_duration(len(x_path))
+        duration = base_duration * speed_scale
+
+        # Convert path to audio
+        left, right = self.path_to_audio.path_to_audio(
+            x_path, y_path,
+            duration=duration,
+            loop_count=loop_count
+        )
+
+        return left, right
+
     def demo(self, text: str = "HELLO"):
         """
         Run a quick demo with preview

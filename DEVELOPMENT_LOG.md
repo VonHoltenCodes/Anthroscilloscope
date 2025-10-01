@@ -407,5 +407,145 @@ x_smooth = sosfilt(sos, x_audio)
 
 ---
 
+## Phase 3: Interactive GUI (October 1, 2025)
+
+### 🎯 Objectives
+Build an interactive graphical user interface for real-time text rendering and control.
+
+### ✅ Implementation
+
+#### GUI Framework
+- **Framework**: Matplotlib widgets (chosen for compatibility - tkinter not available)
+- **Layout**: Grid-based layout with subplot2grid
+- **Design**: Dark theme (#1a1a1a background) with lime/cyan accents
+- **File**: `text_gui.py` (329 lines)
+
+#### Features Implemented
+
+**1. Text Input Field** ✅
+- Interactive TextBox widget
+- Automatic uppercase conversion
+- Real-time preview on Enter
+- Current implementation: matplotlib.widgets.TextBox
+
+**2. Font Size Slider** ✅
+- Range: 0.3x to 3.0x
+- Default: 1.0x
+- Color: Lime green
+- Live preview updates
+- Scaling applied to both X and Y coordinates
+
+**3. Speed Control Slider** ✅
+- Range: 0.1x to 5.0x (affects audio duration)
+- Default: 1.0x
+- Color: Cyan
+- Affects WAV export duration
+- Does not change visual preview (size only)
+
+**4. Real-time Preview Canvas** ✅
+- Large centered preview area (6 rows × 3 columns)
+- Black background with white axes
+- Lime green path rendering
+- Start point (red circle) and end point (blue square) markers
+- Grid overlay with alpha=0.2
+- Equal aspect ratio for accurate proportions
+- Dynamic title showing current text
+
+**5. Export to WAV** ✅
+- Green "Export WAV" button
+- Generates timestamped filenames
+- Applies current font scale and speed settings
+- 60-loop default for persistence on oscilloscope
+- Output directory: `output/`
+- Format: 16-bit stereo WAV, 44.1kHz
+
+**6. Save/Load Presets** ✅
+- **Save Preset** (yellow button): Saves current settings as JSON
+  - Text content
+  - Font scale
+  - Speed scale
+  - Timestamp
+  - Directory: `presets/`
+
+- **Load Preset** (orange button): Loads most recent preset
+  - Updates all UI controls
+  - Refreshes preview automatically
+
+**7. Info Panel** ✅
+- Bottom status bar
+- Shows real-time statistics:
+  - Total points in path
+  - Audio duration
+  - Sample rate
+  - Current font scale
+  - Current speed multiplier
+
+#### Code Structure
+```
+text_gui.py
+├── LissajousTextGUI class
+│   ├── __init__() - Setup figure and layout
+│   ├── _setup_preview() - Configure main canvas
+│   ├── _setup_controls() - Create all widgets
+│   ├── _setup_info() - Status panel
+│   ├── update_preview() - Render text with current settings
+│   ├── on_text_change() - Text input handler
+│   ├── on_size_change() - Font slider handler
+│   ├── on_speed_change() - Speed slider handler
+│   ├── on_export() - WAV export handler
+│   ├── on_save() - Preset save handler
+│   ├── on_load() - Preset load handler
+│   └── show() - Display GUI
+```
+
+#### Additional Features
+- **Demo script**: `demo_gui.py` - Shows all features with instructions
+- **Error handling**: Try-catch blocks with user-friendly error messages
+- **Character validation**: Automatically filters to available characters
+- **File organization**: Automatic directory creation for output/ and presets/
+
+### 📊 Testing Results
+
+**Test 1: GUI Layout** ✅
+- Screenshot generated successfully
+- All widgets visible and properly positioned
+- Dark theme renders correctly
+- Preview shows "ANTHROSCILLOSCOPE" with correct orientation
+
+**Test 2: WAV Export** ✅
+- Successfully exported `output/test_phase3.wav`
+- File size: Appropriate for 30 loops
+- Format: 16-bit stereo, 44.1kHz
+- No errors during export
+
+**Test 3: Scaling** ✅
+- Font scale range (0.3x - 3.0x) works correctly
+- Speed scale affects duration calculation
+- Preview updates in real-time
+
+### 📈 Metrics
+- **GUI File**: 329 lines
+- **Demo File**: 43 lines
+- **New Renderer Method**: `render_text_to_audio()` with scale support
+- **Widgets**: 3 buttons, 2 sliders, 1 text input, 1 preview canvas, 1 info panel
+- **Total Interactive Elements**: 8
+
+### 🎯 Phase 3 Success Criteria
+- ✅ Create GUI with text input field → **Complete**
+- ✅ Font size slider → **Complete (0.3x - 3.0x)**
+- ✅ Real-time preview → **Complete**
+- ✅ Speed control → **Complete (0.1x - 5.0x)**
+- ✅ Save/load text sequences → **Complete (JSON presets)**
+
+### 🚀 Ready for Phase 4
+**Next Steps**: Phase 4 - Advanced Features
+- Rotation and scaling effects
+- Character morphing animations
+- Multiple font styles
+- 3D pseudo-effects
+- Multi-line text support
+
+---
+
 **Last Updated**: October 1, 2025
-**Status**: Phase 2 Complete ✅ | Ready for Phase 3 🚀
+**Status**: Phase 3 Complete ✅ | Ready for Phase 4 🚀

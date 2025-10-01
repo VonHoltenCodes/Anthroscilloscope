@@ -53,6 +53,11 @@ print(stats)
 
 ### Running Demos
 ```bash
+# Interactive GUI (Phase 3)
+python3 text_gui.py
+# or
+python3 demo_gui.py
+
 # Test mock oscilloscope patterns
 python3 demo_mock_oscilloscope.py
 
@@ -288,12 +293,12 @@ This text rendering system integrates seamlessly with the existing Anthroscillos
 - [ ] Add basic punctuation (. , ! ? -)
 - [ ] Optimize path generation for complex characters
 
-### Phase 3: Interactive UI
-- [ ] Create GUI with text input field
-- [ ] Font size slider
-- [ ] Real-time preview
-- [ ] Speed control
-- [ ] Save/load text sequences
+### Phase 3: Interactive UI ✅
+- [x] Create GUI with text input field
+- [x] Font size slider (0.3x - 3.0x)
+- [x] Real-time preview
+- [x] Speed control (0.1x - 5.0x)
+- [x] Save/load text sequences (JSON presets)
 
 ### Phase 4: Advanced Features
 - [ ] Rotation and scaling effects
