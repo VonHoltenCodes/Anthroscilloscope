@@ -52,3 +52,12 @@ Thumbs.db
 config.ini
 secrets.json
 credentials.json
+.env
+*.env
+!.env.example
+config_local.py
+secrets.py
+
+# Generated WAV files (audio output)
+*.wav
+hello_test.wav

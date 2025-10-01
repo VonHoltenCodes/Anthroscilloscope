@@ -64,6 +64,7 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 - **🌀 NEW: Lissajous XY Mode** - Generate and analyze mathematical art patterns with frequency ratios
 - **🎼 NEW: Musical Interval Detection** - Identify perfect fifths, thirds, and other harmonic relationships
 - **🔊 NEW: Audio Signal Generation** - Create test patterns through sound card output
+- **✨ NEW: Text Rendering System (Phase 1)** - Render text as oscilloscope art using Lissajous-style patterns via audio! 🎨
 
 ## 🚀 Quick Start
 
