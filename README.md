@@ -62,9 +62,12 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 - **💾 Deep Memory Capture** - Acquire up to 12M sample points for detailed analysis
 - **🔍 Auto-Discovery** - Automatically find oscilloscopes on your network
 - **🌀 NEW: Lissajous XY Mode** - Generate and analyze mathematical art patterns with frequency ratios
-- **🎼 NEW: Musical Interval Detection** - Identify perfect fifths, thirds, and other harmonic relationships
-- **🔊 NEW: Audio Signal Generation** - Create test patterns through sound card output
-- **✨ NEW: Text Rendering System (Phase 1)** - Render text as oscilloscope art using Lissajous-style patterns via audio! 🎨
+- **🎼 Musical Interval Detection** - Identify perfect fifths, thirds, and other harmonic relationships
+- **🔊 Audio Signal Generation** - Create test patterns through sound card output
+- **✨ Lissajous Text Rendering System** - Complete interactive GUI for rendering text as oscilloscope art via XY mode audio! 🎨
+  - **Phase 1**: Core text-to-audio engine with A-Z characters ✅
+  - **Phase 2**: Full alphanumeric support (A-Z, 0-9, punctuation) ✅
+  - **Phase 3**: Interactive GUI with real-time preview and controls ✅
 
 ## 🚀 Quick Start
 
@@ -245,6 +248,32 @@ print(f"Musical interval: {analysis['musical_interval']}")
 ![Lissajous Pattern on Oscilloscope](readme-photo-assets/IMG_2065.JPEG)
 *Actual Lissajous pattern displayed on DS1104Z Plus in XY mode*
 
+### 🎨 Text Rendering on Oscilloscope (Phase 3 Complete!)
+
+```bash
+# Launch the interactive GUI
+python3 text_gui.py
+```
+
+**Features:**
+- **Real-time Preview** - See your text rendered as Lissajous patterns
+- **Font Size Control** - Scale from 0.3x to 3.0x
+- **Speed Adjustment** - Control playback speed (0.1x to 5.0x)
+- **Export to WAV** - Generate stereo audio files for oscilloscope playback
+- **Save/Load Presets** - Store your favorite settings
+- **42 Characters** - A-Z, 0-9, punctuation (. , ! ? -)
+
+**How it works:**
+1. Enter text in the GUI
+2. Watch real-time preview of XY pattern
+3. Adjust font size and speed sliders
+4. Export to WAV file
+5. Play WAV through oscilloscope in XY mode
+6. See your text appear on the screen!
+
+![Text Rendering GUI](gui_branded.png)
+*Interactive GUI with real-time preview and controls*
+
 ### Automated Testing Script
 
 ```python
@@ -274,6 +303,14 @@ print(f"Probe compensation: {results['status']}")
 | `trigger_control.py` | Advanced trigger configuration |
 | `acquisition_control.py` | Acquisition modes and sampling control |
 | `device_discovery.py` | Auto-discovery of oscilloscopes |
+
+### Text Rendering System ✨
+| Script | Description |
+|--------|-------------|
+| `text_gui.py` | **Interactive GUI for text rendering** |
+| `demo_gui.py` | GUI demo with instructions |
+| `branding.py` | Project branding and credits |
+| `text_rendering/` | Core rendering engine (Hershey fonts → audio) |
 | `data_export.py` | Multi-format data export |
 | `waveform_generator.py` | Built-in signal generator control (-S models) |
 | **`lissajous_xy_mode.py`** | **XY mode control and Lissajous pattern analysis** |
@@ -348,6 +385,16 @@ Anthroscilloscope/
 │   ├── frequency_math.py             # Musical intervals
 │   ├── waveform_generator_control.py # Audio generation
 │   └── interactive_lissajous_demo.py # Interactive GUI
+├── Text Rendering System ✨
+│   ├── text_gui.py                   # Interactive GUI (Phase 3)
+│   ├── demo_gui.py                   # GUI demo launcher
+│   ├── branding.py                   # Project branding & credits
+│   ├── splash_screen.py              # Splash screen
+│   └── text_rendering/               # Core rendering engine
+│       ├── hershey_font.py           # Vector font (42 chars)
+│       ├── text_to_path.py           # Text → XY coordinates
+│       ├── path_to_audio.py          # Path → stereo audio
+│       └── lissajous_text_renderer.py # Main API
 ├── Analysis Tools
 │   ├── capture_and_analyze.py         # Waveform analysis
 │   ├── spectrum_analyzer.py           # FFT analysis
@@ -377,7 +424,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Built for the Rigol DS1104Z Plus community
 - PyVISA team for the excellent VISA implementation
+- Hershey Font project for vector font data
 - All contributors and testers
+
+**Created by Trenton Von Holten**
+GitHub: [@VonHoltenCodes](https://github.com/VonHoltenCodes)
 
 ## 📬 Support
 

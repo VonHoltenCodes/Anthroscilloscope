@@ -2,9 +2,11 @@
 
 **Transform text into oscilloscope art using XY mode and audio signals**
 
-![Status](https://img.shields.io/badge/Status-Phase%201%20Complete-success)
+![Status](https://img.shields.io/badge/Status-Phase%203%20Complete-success)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+**Created by Trenton Von Holten** | [@VonHoltenCodes](https://github.com/VonHoltenCodes)
 
 ---
 
@@ -13,11 +15,14 @@
 This system converts text strings into vector paths and generates stereo audio signals that, when fed into an oscilloscope in XY mode, render the text as Lissajous-style patterns. No external function generator required - just your computer's audio output!
 
 **Key Features**:
-- ✨ Text-to-oscilloscope rendering via audio signals
+- ✨ **Interactive GUI** - Real-time preview and controls (Phase 3)
+- 🎨 **42 Characters** - A-Z, 0-9, punctuation (. , ! ? -)
 - 🔤 Vector-based Hershey font system
 - 🎵 Stereo audio output (Left=X, Right=Y)
-- 🔬 Mock oscilloscope for development without hardware
+- 📏 **Font & Speed Control** - Adjustable size (0.3x-3.0x) and speed (0.1x-5.0x)
+- 💾 **Preset Management** - Save/load favorite settings
 - 📊 WAV file export for playback
+- 🔬 Mock oscilloscope for development without hardware
 
 ---
 

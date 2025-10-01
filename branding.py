@@ -53,11 +53,12 @@ LOGO_MINI = r"""
 """
 
 # Attribution
-AUTHOR = "VonHolten"
+AUTHOR = "Trenton Von Holten"
+AUTHOR_HANDLE = "VonHoltenCodes"
 AUTHOR_GITHUB = "https://github.com/VonHoltenCodes"
 PROJECT_URL = "https://github.com/VonHoltenCodes/Anthroscilloscope"
 PROJECT_NAME = "Anthroscilloscope"
-VERSION = "1.0.0-phase3"
+VERSION = "1.0.0"
 
 # Credits
 CREDITS = """
@@ -105,11 +106,11 @@ TAGLINES = [
 ]
 
 # License
-LICENSE_SHORT = "MIT License © 2025 VonHolten"
+LICENSE_SHORT = "MIT License © 2025 Trenton Von Holten"
 LICENSE_FULL = """
 MIT License
 
-Copyright (c) 2025 VonHolten
+Copyright (c) 2025 Trenton Von Holten
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
