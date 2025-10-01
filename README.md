@@ -268,6 +268,9 @@ python3 text_gui.py
 - **🌊 Wave Distortion** - Sine wave effects
 - **🎬 Morphing** - Smooth transitions between text
 
+![Advanced GUI with Effects](gui_advanced_phase4.png)
+*Phase 4 Advanced GUI - "PHASE 4" with 15° rotation and shadow effect*
+
 **Phase 3 Core Features:**
 - **Real-time Preview** - See your text rendered as Lissajous patterns
 - **Font Size Control** - Scale from 0.3x to 3.0x
@@ -276,16 +279,17 @@ python3 text_gui.py
 - **Save/Load Presets** - Store your favorite settings
 - **42 Characters** - A-Z, 0-9, punctuation (. , ! ? -)
 
+![Standard GUI](gui_branded.png)
+*Phase 3 Standard GUI with real-time preview and controls*
+
 **How it works:**
 1. Enter text in the GUI
-2. Watch real-time preview of XY pattern
-3. Adjust font size and speed sliders
-4. Export to WAV file
-5. Play WAV through oscilloscope in XY mode
-6. See your text appear on the screen!
-
-![Text Rendering GUI](gui_branded.png)
-*Interactive GUI with real-time preview and controls*
+2. Adjust rotation, scaling, and effects
+3. Watch real-time preview of XY pattern
+4. Adjust font size and speed sliders
+5. Export to WAV file
+6. Play WAV through oscilloscope in XY mode
+7. See your text appear on the screen with effects!
 
 ### Automated Testing Script
 
