@@ -68,6 +68,7 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
   - **Phase 1**: Core text-to-audio engine with A-Z characters ✅
   - **Phase 2**: Full alphanumeric support (A-Z, 0-9, punctuation) ✅
   - **Phase 3**: Interactive GUI with real-time preview and controls ✅
+  - **Phase 4**: Advanced effects (rotation, 3D, shadows, morphing) ✅
 
 ## 🚀 Quick Start
 
@@ -248,14 +249,26 @@ print(f"Musical interval: {analysis['musical_interval']}")
 ![Lissajous Pattern on Oscilloscope](readme-photo-assets/IMG_2065.JPEG)
 *Actual Lissajous pattern displayed on DS1104Z Plus in XY mode*
 
-### 🎨 Text Rendering on Oscilloscope (Phase 3 Complete!)
+### 🎨 Text Rendering on Oscilloscope (Phase 4 Complete!)
 
 ```bash
-# Launch the interactive GUI
+# Launch the advanced GUI with effects
+python3 text_gui_advanced.py
+
+# Or use the standard GUI
 python3 text_gui.py
 ```
 
-**Features:**
+**Phase 4 Advanced Features:**
+- **🔄 Rotation** - 0-360° real-time rotation
+- **📏 Independent Scaling** - Separate X/Y axis control
+- **✨ Skew/Italics** - Shear transformation effect
+- **🎭 Shadow Effect** - Drop shadow with offset
+- **🌀 3D Perspective** - Pseudo-3D depth and tilt
+- **🌊 Wave Distortion** - Sine wave effects
+- **🎬 Morphing** - Smooth transitions between text
+
+**Phase 3 Core Features:**
 - **Real-time Preview** - See your text rendered as Lissajous patterns
 - **Font Size Control** - Scale from 0.3x to 3.0x
 - **Speed Adjustment** - Control playback speed (0.1x to 5.0x)
@@ -307,9 +320,11 @@ print(f"Probe compensation: {results['status']}")
 ### Text Rendering System ✨
 | Script | Description |
 |--------|-------------|
-| `text_gui.py` | **Interactive GUI for text rendering** |
+| `text_gui_advanced.py` | **Advanced GUI with Phase 4 effects** |
+| `text_gui.py` | Standard interactive GUI (Phase 3) |
 | `demo_gui.py` | GUI demo with instructions |
 | `branding.py` | Project branding and credits |
+| `text_rendering/effects.py` | Advanced effects module (rotation, 3D, shadows) |
 | `text_rendering/` | Core rendering engine (Hershey fonts → audio) |
 | `data_export.py` | Multi-format data export |
 | `waveform_generator.py` | Built-in signal generator control (-S models) |

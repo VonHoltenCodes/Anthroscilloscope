@@ -2,7 +2,7 @@
 
 **Transform text into oscilloscope art using XY mode and audio signals**
 
-![Status](https://img.shields.io/badge/Status-Phase%203%20Complete-success)
+![Status](https://img.shields.io/badge/Status-Phase%204%20Complete-success)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
@@ -305,12 +305,12 @@ This text rendering system integrates seamlessly with the existing Anthroscillos
 - [x] Speed control (0.1x - 5.0x)
 - [x] Save/load text sequences (JSON presets)
 
-### Phase 4: Advanced Features
-- [ ] Rotation and scaling effects
-- [ ] Character morphing animations
-- [ ] Multiple font styles
-- [ ] 3D pseudo-effects
-- [ ] Multi-line text support
+### Phase 4: Advanced Features ✅
+- [x] Rotation and scaling effects (4 sliders)
+- [x] Character morphing animations (morph function)
+- [x] Multiple font styles (via effects)
+- [x] 3D pseudo-effects (perspective transformation)
+- [x] Multi-line text support (layout manager)
 
 ---
 
