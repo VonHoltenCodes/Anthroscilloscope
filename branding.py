@@ -78,6 +78,7 @@ Features:
   • Real-time Oscilloscope Text Preview
   • XY Mode Audio Generation
   • Interactive GUI Controls
+  • Advanced Effects (Rotation, 3D, Shadows)
   • Preset Management
 
 Technology Stack:
@@ -85,6 +86,11 @@ Technology Stack:
   • Matplotlib (Interactive Widgets)
   • NumPy (Signal Processing)
   • SciPy (Audio Export)
+
+Development:
+  • Built with Claude Code (Anthropic)
+  • Powered by Claude Sonnet 4.5
+  • Phases 1-4 developed with AI assistance
 
 Built for hardware hackers, signal enthusiasts, and
 oscilloscope artists everywhere.

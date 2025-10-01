@@ -444,6 +444,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built for the Rigol DS1104Z Plus community
 - PyVISA team for the excellent VISA implementation
 - Hershey Font project for vector font data
+- **Anthropic** for [Claude Code](https://claude.com/claude-code) and Claude Sonnet 4.5
+  - The entire Lissajous Text Rendering System (Phases 1-4) was developed using Claude Sonnet 4.5
+  - Interactive GUI design and implementation created with Claude Code
 - All contributors and testers
 
 **Created by Trenton Von Holten**

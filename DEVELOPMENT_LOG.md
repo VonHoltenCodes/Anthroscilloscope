@@ -686,3 +686,33 @@ All Phase 4 features tested and functional:
 
 **Last Updated**: October 1, 2025
 **Status**: Phase 4 Complete ✅ | Full Production Release 🚀
+
+---
+
+## 🙏 Development Credits
+
+**Lissajous Text Rendering System (Phases 1-4):**
+- Developed by: **Trenton Von Holten** ([@VonHoltenCodes](https://github.com/VonHoltenCodes))
+- Built with: **Claude Code** by Anthropic
+- AI Model: **Claude Sonnet 4.5**
+- Development Period: October 1, 2025
+- Total Development Time: Single day (4 complete phases)
+
+**What Claude Sonnet 4.5 Created:**
+- Complete Hershey vector font system (42 characters)
+- Text-to-path conversion engine
+- Path-to-audio synthesis
+- Interactive GUI with matplotlib widgets
+- Advanced effects system (rotation, 3D, shadows, morphing)
+- Preset management system
+- Comprehensive documentation
+- Professional branding and credits
+
+**Human Contributions:**
+- Project vision and requirements
+- Design direction and feature requests
+- Testing and feedback
+- Character orientation verification
+- Deployment and production decisions
+
+This project demonstrates the power of human-AI collaboration in software development.

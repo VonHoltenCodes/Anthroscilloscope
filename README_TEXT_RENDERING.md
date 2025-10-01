@@ -362,11 +362,33 @@ self.characters['X'] = Character(
 
 ---
 
+## 🙏 Acknowledgments
+
+**Development Credits:**
+- **Created by**: Trenton Von Holten ([@VonHoltenCodes](https://github.com/VonHoltenCodes))
+- **Built with**: [Claude Code](https://claude.com/claude-code) by Anthropic
+- **AI Model**: Claude Sonnet 4.5
+- **Development**: All 4 phases (Phases 1-4) developed with Claude Sonnet 4.5
+
+**What Was Created with AI:**
+- Complete Hershey vector font implementation (42 characters)
+- Text-to-path conversion engine with interpolation
+- Path-to-audio synthesis with filtering
+- Interactive GUI with real-time preview
+- Advanced effects system (rotation, 3D, shadows, morphing)
+- Preset management and WAV export
+- Professional branding and documentation
+
+This project showcases the power of human-AI collaboration in software development.
+
+---
+
 ## 📖 References
 
 ### Documentation
 - [Hershey Font Format](https://paulbourke.net/dataformats/hershey/)
 - [PyVISA Documentation](https://pyvisa.readthedocs.io/)
+- [Claude Code](https://claude.com/claude-code) by Anthropic
 - [Rigol DS1104Z Plus Programming Guide](https://www.rigolna.com/products/digital-oscilloscopes/1000z/)
 
 ### Similar Projects
