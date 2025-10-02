@@ -48,6 +48,29 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 ![Anthroscilloscope GUI](readme-photo-assets/anthroscilloscope-gui.png)
 *Main control interface with live waveform display and measurement controls*
 
+## 🌐 Web-Based Lissajous Text Generator
+
+**[Try the Live Demo →](https://vonholtencodes.com/lissajous-generator/)**
+
+Convert text to beautiful Lissajous curves for oscilloscope XY mode display! This web-based version of the text rendering engine runs entirely in your browser - no installation required.
+
+![Lissajous Generator Web Demo](https://raw.githubusercontent.com/VonHoltenCodes/Anthroscilloscope/main/gui_screenshot.png)
+
+**Features:**
+- Real-time text-to-Lissajous conversion (A-Z, 0-9)
+- Interactive canvas with animation controls
+- Export to PNG for images
+- Export to WAV for oscilloscope playback (stereo audio)
+- Adjustable speed and intensity
+- URL sharing with parameters
+
+**How to use with oscilloscope:**
+1. Enter your text in the web interface
+2. Export as WAV file
+3. Connect audio: Left channel → CH1 (X-axis), Right channel → CH2 (Y-axis)
+4. Set oscilloscope to XY mode
+5. Enjoy vector text on your CRT display!
+
 ### ✨ Key Features
 
 - **🎯 Real-Time Waveform Display** - Stream live waveforms directly to your PC with matplotlib visualization
