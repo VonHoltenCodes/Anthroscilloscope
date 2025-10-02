@@ -54,7 +54,7 @@ Anthroscilloscope is a comprehensive Python toolkit that brings your Rigol DS110
 
 Convert text to beautiful Lissajous curves for oscilloscope XY mode display! This web-based version of the text rendering engine runs entirely in your browser - no installation required.
 
-![Lissajous Generator Web Demo](https://raw.githubusercontent.com/VonHoltenCodes/Anthroscilloscope/main/gui_screenshot.png)
+![Lissajous Generator Web Demo](web-demo-screenshot.png)
 
 **Features:**
 - Real-time text-to-Lissajous conversion (A-Z, 0-9)
